@@ -74,7 +74,7 @@ runs:
             }
             const equality = JSON.stringify(expectedResult) === JSON.stringify(actualResult)
 
-            if(equality){
+            if(!equality){
             core.setFailed(`============ Assert Failed ============ \n
             Expected: ${JSON.stringify(expectedResult)} \n
             Actual: ${JSON.stringify(actualResult)}
