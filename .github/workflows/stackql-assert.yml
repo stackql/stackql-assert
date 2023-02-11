@@ -30,7 +30,18 @@ jobs:
       run: | ## use the base64 encoded secret to create json file
         sudo echo ${{ secrets.GOOGLE_CREDS }} | base64 -d > sa-key.json
 
-    - name: exec google example
+    - name: query test statement example
+      uses: ./
+      with:
+        auth_obj_path: './stackql_scripts/auth.json'
+        test_query: |
+            REGISTRY PULL google v23.01.00116;
+            SELECT name, status
+            FROM google.compute.instances 
+            WHERE project = 'stackql-demo' AND zone = 'australia-southeast1-a' AND name = 'stackql-demo-001';
+        expected_results: ' [{"name":"stackql-demo-001","status":"TERMINATED"}]'
+
+    - name: query test file example
       uses: ./
       with:
         auth_obj_path: './stackql_scripts/auth.json'
