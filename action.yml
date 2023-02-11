@@ -18,7 +18,10 @@ inputs:
     description: expected number of rows from executing test query
     required: false
   expected_results:
-    description: expected result from executing test query
+    description: expected result from executing test query, support object string
+    required: false
+  expected_results_path:
+    description: file that stores expected result, json and csv are support
     required: false
 
 runs:
@@ -54,9 +57,31 @@ runs:
       uses: actions/github-script@v6
       with:
         script: |
-          console.log(process.env.RESULT)
+          const _ = require("lodash")
+          try{
+            const execOutput = JSON.parse(process.env.RESULT)
+            const expectedResult = JSON.parse(process.env.EXPECTED_RESULTS)
+            if(!execOutput){
+                core.setFailed('No Output from executing query');
+            }
+            const equality = _.isEqual(execOutput, expectedResult)
+            if(equality){
+            core.error(`============ Assert Failed ============ \n
+            Expected: ${JSON.stringify(expectedResult)} \n
+            Actual: ${JSON.stringify(execOutput)}
+            `)
+            }
+          }catch(e){
+            core.error(e);
+          }
+
+        
+
       env:
         RESULT: ${{steps.exec-query.outputs.stdout}}
+        EXPECTED_RESULTS: ${{ inputs.expected_results }}
+        EXPECTED_RESULTS_FILE_PATH: ${{inputs.expected_results_path}}
+        EXPECTED_ROWS: ${{inputs.expected_rows}}
 
     
       

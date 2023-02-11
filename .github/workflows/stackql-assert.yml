@@ -8,7 +8,7 @@ on:
 jobs:
   stackql-exec-google-example:
     runs-on: ubuntu-latest
-    name: 'StackQL exec Google '
+    name: 'Assert test '
 
     steps: 
     - name: Checkout
@@ -35,5 +35,7 @@ jobs:
       with:
         auth_obj_path: './stackql_scripts/auth.json'
         test_query_file_path: './stackql_scripts/google-example.iql'
+        expected_results: ' [{"name":"stackql-demo-001","status":"TERMINATED"}]'
+          
 
 
