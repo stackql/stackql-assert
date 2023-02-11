@@ -72,13 +72,13 @@ runs:
             }
             const equality = JSON.stringify(execOutput) === JSON.stringify(execResult)
             if(equality){
-            core.error(`============ Assert Failed ============ \n
+            core.setFailed(`============ Assert Failed ============ \n
             Expected: ${JSON.stringify(expectedResult)} \n
             Actual: ${JSON.stringify(execResult)}
             `)
             }
           }catch(e){
-            core.error(e);
+            core.setFailed(e);
           }
 
         
