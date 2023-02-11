@@ -64,7 +64,7 @@ runs:
             if(!execOutput){
                 core.setFailed('No Output from executing query');
             }
-            const equality = _.isEqual(execOutput, expectedResult)
+            const equality = JSON.stringify(execOutput) === JSON.stringify(expectedResult)
             if(equality){
             core.error(`============ Assert Failed ============ \n
             Expected: ${JSON.stringify(expectedResult)} \n
