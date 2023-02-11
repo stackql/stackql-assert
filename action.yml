@@ -75,14 +75,14 @@ runs:
             const equality = JSON.stringify(expectedResult) === JSON.stringify(actualResult)
 
             if(!equality){
-            core.setFailed(`============ Assert Failed ============ \n
+            core.setFailed(`============ StackQL Assert Failed ============ \n
             Expected: ${JSON.stringify(expectedResult)} \n
             Actual: ${JSON.stringify(actualResult)}
             `)
             return false;
             }
 
-            core.info('============ Assert Successfully ============ ')
+            core.info('============ StackQL Assert Succeed ============ ')
 
           }catch(e){
             core.setFailed(e);
