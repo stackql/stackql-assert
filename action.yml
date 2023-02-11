@@ -57,7 +57,6 @@ runs:
       uses: actions/github-script@v6
       with:
         script: |
-          const _ = require("lodash")
           try{
             const execOutput = JSON.parse(process.env.RESULT)
             const expectedResult = JSON.parse(process.env.EXPECTED_RESULTS)
