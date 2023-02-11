@@ -79,7 +79,11 @@ runs:
             Expected: ${JSON.stringify(expectedResult)} \n
             Actual: ${JSON.stringify(actualResult)}
             `)
+            return false;
             }
+
+            core.info('============ Assert Successfully ============ ')
+
           }catch(e){
             core.setFailed(e);
           }
