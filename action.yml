@@ -64,12 +64,12 @@ runs:
             const registerPullPattern = /^[\w\s]+provider, version '.*' successfully installed\n\[.*\]$/;
             if(registerPullPattern.test(execResult)){
             const lines = execResult.split('\n')
-            core.info('find the regex pattern, lines are %o', lines)
             execResult = lines[1]
             }
             const expectedResult = JSON.parse(process.env.EXPECTED_RESULTS)
             const actualResult = JSON.parse(execResult)
-            if(!execResult){
+
+            if(!actualResult){
                 core.setFailed('No Output from executing query');
             }
             const equality = JSON.stringify(expectedResult) === JSON.stringify(actualResult)
@@ -77,7 +77,7 @@ runs:
             if(equality){
             core.setFailed(`============ Assert Failed ============ \n
             Expected: ${JSON.stringify(expectedResult)} \n
-            Actual: ${JSON.stringify(execResult)}
+            Actual: ${JSON.stringify(actualResult)}
             `)
             }
           }catch(e){
