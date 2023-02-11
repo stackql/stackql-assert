@@ -59,6 +59,7 @@ runs:
         script: |
           try{
             let execResult = process.env.RESULT
+
             ///remove the register pull line
             const registerPullPattern = /^[\w\s]+provider, version '.*' successfully installed$/;
             if(registerPullPattern.test(execResult)){
@@ -67,10 +68,12 @@ runs:
             }
 
             const expectedResult = JSON.parse(process.env.EXPECTED_RESULTS)
-            if(!execOutput){
+
+            if(!execResult){
                 core.setFailed('No Output from executing query');
             }
             const equality = JSON.stringify(execOutput) === JSON.stringify(execResult)
+
             if(equality){
             core.setFailed(`============ Assert Failed ============ \n
             Expected: ${JSON.stringify(expectedResult)} \n
