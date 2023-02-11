@@ -67,13 +67,12 @@ runs:
             core.info('find the regex pattern, lines are %o', lines)
             execResult = lines[1]
             }
-
             const expectedResult = JSON.parse(process.env.EXPECTED_RESULTS)
-
+            const actualResult = JSON.parse(execResult)
             if(!execResult){
                 core.setFailed('No Output from executing query');
             }
-            const equality = JSON.stringify(execResult) === JSON.stringify(execResult)
+            const equality = JSON.stringify(expectedResult) === JSON.stringify(actualResult)
 
             if(equality){
             core.setFailed(`============ Assert Failed ============ \n
