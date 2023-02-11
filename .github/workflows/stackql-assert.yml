@@ -1,4 +1,4 @@
-name: 'Setup StackQL'
+name: 'StackQL Assert'
 
 on:
   push:
@@ -7,10 +7,7 @@ on:
   pull_request:
 jobs:
   stackql-exec-google-example:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    runs-on: ${{matrix.os}}
+    runs-on: ubuntu-latest
     name: 'StackQL exec Google '
 
     steps: 
@@ -37,6 +34,6 @@ jobs:
       uses: ./
       with:
         auth_obj_path: './stackql_scripts/auth.json'
-        query_file_path: './stackql_scripts/google-example.iql'
+        test_query_file_path: './stackql_scripts/google-example.iql'
 
 
