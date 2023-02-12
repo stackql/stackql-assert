@@ -1,3 +1,4 @@
+let core;
 const parseResult = (resultStr) =>{
     let parsedResult = resultStr;
     const registerPullPattern = /^[\w\s]+provider, version '.*' successfully installed\n\[.*\]$/;
@@ -56,7 +57,7 @@ module.exports = (coreObj) =>{
 
         
 
-        let expectedResult = getExpectedResult(execResultStr, expectedResultFilePath)
+        let expectedResult = getExpectedResult(expectedResultStr, expectedResultFilePath)
         
         const actualResult = parseResult(execResultStr)
 
