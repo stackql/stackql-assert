@@ -12,11 +12,11 @@ const parseResult = (resultStr) =>{
 const getExpectedResult = (expectedResultStr, expectedResultFilePath) =>{
     let expectedResult; 
     if(expectedResultStr){
-        expectedResult  = parseResult(expectedResultStr)
+        expectedResult  = expectedResultStr
     }
     else if(expectedResultFilePath){
         const content = require(expectedResultFilePath)
-        expectedResult = parseResult(content)
+        expectedResult = content
     }
 
     return expectedResult
@@ -57,8 +57,7 @@ module.exports = (core) =>{
 
         let expectedResult = getExpectedResult(execResultStr, expectedResultFilePath)
         
-
-        const actualResult = JSON.parse(parseResult(execResultStr))
+        const actualResult = parseResult(execResultStr)
 
         if(!actualResult){
             core.setFailed('No Output from executing query');
