@@ -26,12 +26,18 @@ const getExpectedResult = (expectedResultStr, expectedResultFilePath) =>{
 const checkResult= (expectedResult, expectedRows, actualResult) =>{
     let equality;
     let message;
-    equality = actualResult.length === expectedRows
-    message =`============ StackQL Assert Failed ============ \n
-    Expected Number of Rows: ${expectedRows} \n
-    Actual Number of Rows: ${actualResult.length}
-    Execution Result: ${JSON.stringify(actualResult)}
-    `
+    // if only passed expectedRows, check expectedRows
+    // if only passed expected result, only check expected result
+    // if both passed, check both
+    if(expectedRows){
+        equality = actualResult.length === expectedRows
+        message =`============ StackQL Assert Failed ============ \n
+        Expected Number of Rows: ${expectedRows} \n
+        Actual Number of Rows: ${actualResult.length}
+        Execution Result: ${JSON.stringify(actualResult)}
+        `
+    }
+  
     if(expectedResult){
         equality = JSON.stringify(expectedResult) === JSON.stringify(actualResult)
         message = `============ StackQL Assert Failed ============ \n
