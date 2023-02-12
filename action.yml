@@ -17,7 +17,7 @@ inputs:
   expected_rows: 
     description: expected number of rows from executing test query
     required: false
-  expected_results_str:
+  expected_results:
     description: expected result from executing test query, support object string
     required: false
   expected_results_path:
@@ -59,10 +59,11 @@ runs:
         script: |
           const assert = require('./action_scripts/assert.js')
           assert(core)
-        result: ${{steps.exec-query.outputs.stdout}}
-        # expected_result_str: ${{ inputs.expected_results }}
-        # expected_result_file_path: ${{inputs.expected_results_path}}
-        # expected_rows: ${{inputs.expected_rows}}
+      env:
+        RESULT: ${{steps.exec-query.outputs.stdout}}
+        EXPECTED_RESULTS_STR: ${{ inputs.expected_results_str }}
+        EXPECTED_RESULTS_FILE_PATH: ${{inputs.expected_results_path}}
+        EXPECTED_ROWS: ${{inputs.expected_rows}}
 
     
       

@@ -47,10 +47,8 @@ const checkResult= (expectedResult, expectedRows, actualResult) =>{
 
 module.exports = (core) =>{
     try{
-        let execResultStr = core.getInput('result')
-        let expectedResultStr = core.getInput('expected_result_str')
-        let expectedResultFilePath = core.getInput('expected_result_file_path')
-        let expectedRows = core.getInput('expected_rows')
+        let [execResultStr, expectedResultStr, expectedResultFilePath, expectedRows] =
+        [process.env.RESULT, process.env.EXPECTED_RESULTS_STR, process.env.EXPECTED_RESULTS_FILE_PATH, process.env.EXPECTED_ROWS]
 
         if(!expectedResultStr && !expectedResultFilePath && !expectedRows){
             core.setFailed('Cannot find expected result, file path or expected rows')
@@ -58,7 +56,7 @@ module.exports = (core) =>{
 
         
 
-        const expectedResult = getExpectedResult(execResultStr, expectedResultFilePath)
+        let expectedResult = getExpectedResult(execResultStr, expectedResultFilePath)
         
 
         const actualResult = JSON.parse(execResultStr)
