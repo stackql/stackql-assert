@@ -58,7 +58,6 @@ runs:
       uses: actions/github-script@v6
       with:
         script: |
-          console.log('core is %o', core)
           const assertResult = require('./action_scripts/assert.js')
           assertResult(core)
       env:

@@ -44,7 +44,8 @@ const checkResult= (expectedResult, expectedRows, actualResult) =>{
 
 }
 
-module.exports = (core) =>{
+module.exports = (coreObj) =>{
+    core = coreObj
     try{
         let [execResultStr, expectedResultStr, expectedResultFilePath, expectedRows] =
         [process.env.RESULT, process.env.EXPECTED_RESULTS_STR, process.env.EXPECTED_RESULTS_FILE_PATH, process.env.EXPECTED_ROWS]
