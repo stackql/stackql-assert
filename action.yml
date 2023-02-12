@@ -20,7 +20,7 @@ inputs:
   expected_results_str:
     description: expected result from executing test query, support object string
     required: false
-  expected_results_path:
+  expected_results_file_path:
     description: file that stores expected result, json and csv are support
     required: false
 
