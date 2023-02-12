@@ -1,4 +1,5 @@
 let core;
+const fs = require('fs')
 const parseResult = (resultStr) =>{
     let parsedResult = resultStr;
     const registerPullPattern = /^[\w\s]+provider, version '.*' successfully installed\n\[.*\]$/;
@@ -16,8 +17,7 @@ const getExpectedResult = (expectedResultStr, expectedResultFilePath) =>{
         expectedResult  = JSON.parse(expectedResultStr)
     }
     else if(expectedResultFilePath){
-        const content = require(expectedResultFilePath)
-        expectedResult = JSON.parse(content)
+        expectedResult = JSON.parse(fs.readFileSync(expectedResultFilePath));
     }
 
     return expectedResult
