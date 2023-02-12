@@ -61,7 +61,7 @@ jobs:
       with:
         auth_str: '{ "google": { "type": "service_account",  "credentialsfilepath": "sa-key.json" }}'
         test_query_file_path: './stackql_scripts/google-example.iql'
-        expected_results_str: './github/workflows/expected_result.json'
+        expected_results_file_path: './github/workflows/expected_result.json'
           
 
 
