@@ -14,18 +14,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Prep Google Creds (Windows)
-      if: ${{ matrix.os == 'windows-latest'}}
-      run: | ## use the secret to create json file
-        $GoogleCreds = [System.Environment]::GetEnvironmentVariable("GOOGLE_CREDS_ENV")
-        $GoogleCredsDecoded = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($GoogleCreds))
-        Write-Output $GoogleCredsDecoded | Set-Content sa-key.json
-      shell: pwsh
-      env:
-        GOOGLE_CREDS_ENV: ${{ secrets.GOOGLE_CREDS }}
   
     - name: Prep Google Creds (bash)
-      if: ${{ matrix.os != 'windows-latest' }}
       shell: bash
       run: | ## use the base64 encoded secret to create json file
         sudo echo ${{ secrets.GOOGLE_CREDS }} | base64 -d > sa-key.json
@@ -33,20 +23,20 @@ jobs:
     - name: query test statement example with auth_obj_path
       uses: ./
       with:
-        auth_obj_path: './stackql_scripts/auth.json'
+        auth_obj_path: './.github/workflows/workflow_scripts/auth.json'
         test_query: |
             REGISTRY PULL google v23.01.00116;
             SELECT name, status
             FROM google.compute.instances 
             WHERE project = 'stackql-demo' AND zone = 'australia-southeast1-a' AND name = 'stackql-demo-001';
-        expected_results: ' [{"name":"stackql-demo-001","status":"TERMINATED"}]'
+        expected_results_str: ' [{"name":"stackql-demo-001","status":"TERMINATED"}]'
 
     - name: query test file example with auth_obj_path
       uses: ./
       with:
-        auth_obj_path: './stackql_scripts/auth.json'
-        test_query_file_path: './stackql_scripts/google-example.iql'
-        expected_results: ' [{"name":"stackql-demo-001","status":"TERMINATED"}]'
+        auth_obj_path: './.github/workflows/workflow_scripts/auth.json'
+        test_query_file_path: './.github/workflows/workflow_scripts/google-example.iql'
+        expected_results_str: ' [{"name":"stackql-demo-001","status":"TERMINATED"}]'
 
     - name: query test statement example with auth string
       uses: ./
@@ -57,14 +47,21 @@ jobs:
             SELECT name, status
             FROM google.compute.instances 
             WHERE project = 'stackql-demo' AND zone = 'australia-southeast1-a' AND name = 'stackql-demo-001';
-        expected_results: ' [{"name":"stackql-demo-001","status":"TERMINATED"}]'
+        expected_results_str: '[{"name":"stackql-demo-001","status":"TERMINATED"}]'
 
     - name: query test file example with auth string
       uses: ./
       with:
         auth_str: '{ "google": { "type": "service_account",  "credentialsfilepath": "sa-key.json" }}'
-        test_query_file_path: './stackql_scripts/google-example.iql'
-        expected_results: ' [{"name":"stackql-demo-001","status":"TERMINATED"}]'
+        test_query_file_path: './.github/workflows/workflow_scripts/google-example.iql'
+        expected_results_str: '[{"name":"stackql-demo-001","status":"TERMINATED"}]'
+
+    - name: query test file while expected result is a file
+      uses: ./
+      with:
+        auth_str: '{ "google": { "type": "service_account",  "credentialsfilepath": "sa-key.json" }}'
+        test_query_file_path: './.github/workflows/workflow_scripts/google-example.iql'
+        expected_results_file_path: './.github/workflows/workflow_scripts/expected_results.json'
           
 
 

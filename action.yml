@@ -17,11 +17,11 @@ inputs:
   expected_rows: 
     description: expected number of rows from executing test query
     required: false
-  expected_results:
+  expected_results_str:
     description: expected result from executing test query, support object string
     required: false
-  expected_results_path:
-    description: file that stores expected result, json and csv are support
+  expected_results_file_path:
+    description: file that stores expected result, json is support
     required: false
 
 runs:
@@ -57,43 +57,12 @@ runs:
       uses: actions/github-script@v6
       with:
         script: |
-          try{
-            let execResult = process.env.RESULT
-
-            ///remove the register pull line
-            const registerPullPattern = /^[\w\s]+provider, version '.*' successfully installed\n\[.*\]$/;
-            if(registerPullPattern.test(execResult)){
-            const lines = execResult.split('\n')
-            execResult = lines[1]
-            }
-            const expectedResult = JSON.parse(process.env.EXPECTED_RESULTS)
-            const actualResult = JSON.parse(execResult)
-
-            if(!actualResult){
-                core.setFailed('No Output from executing query');
-            }
-            const equality = JSON.stringify(expectedResult) === JSON.stringify(actualResult)
-
-            if(!equality){
-            core.setFailed(`============ StackQL Assert Failed ============ \n
-            Expected: ${JSON.stringify(expectedResult)} \n
-            Actual: ${JSON.stringify(actualResult)}
-            `)
-            return false;
-            }
-
-            core.info('============ StackQL Assert Succeed ============ ')
-
-          }catch(e){
-            core.setFailed(e);
-          }
-
-        
-
+          const assertResult = require('./action_scripts/assert.js')
+          assertResult(core)
       env:
         RESULT: ${{steps.exec-query.outputs.stdout}}
-        EXPECTED_RESULTS: ${{ inputs.expected_results }}
-        EXPECTED_RESULTS_FILE_PATH: ${{inputs.expected_results_path}}
+        EXPECTED_RESULTS_STR: ${{ inputs.expected_results_str }}
+        EXPECTED_RESULTS_FILE_PATH: ${{inputs.expected_results_file_path}}
         EXPECTED_ROWS: ${{inputs.expected_rows}}
 
     
