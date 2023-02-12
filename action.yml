@@ -53,6 +53,7 @@ runs:
         QUERY: ${{inputs.test_query}}
         OUTPUT: 'json'
     
+    - uses: actions/checkout@v2
     - name: Check results
       uses: actions/github-script@v6
       with:
