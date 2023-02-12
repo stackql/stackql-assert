@@ -3,7 +3,7 @@ const parseResult = (resultStr) =>{
     const registerPullPattern = /^[\w\s]+provider, version '.*' successfully installed\n\[.*\]$/;
     if(registerPullPattern.test(resultStr)){
     const lines = resultStr.split('\n')
-    parseResult =  lines[1]
+    parsedResult =  lines[1]
     }
     return JSON.parse(parsedResult)
    
