@@ -13,11 +13,11 @@ const parseResult = (resultStr) =>{
 const getExpectedResult = (expectedResultStr, expectedResultFilePath) =>{
     let expectedResult; 
     if(expectedResultStr){
-        expectedResult  = expectedResultStr
+        expectedResult  = JSON.parse(expectedResultStr)
     }
     else if(expectedResultFilePath){
         const content = require(expectedResultFilePath)
-        expectedResult = content
+        expectedResult = JSON.parse(content)
     }
 
     return expectedResult
