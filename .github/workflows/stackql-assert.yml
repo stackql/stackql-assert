@@ -30,6 +30,11 @@ jobs:
             FROM google.compute.instances 
             WHERE project = 'stackql-demo' AND zone = 'australia-southeast1-a' AND name = 'stackql-demo-001';
         expected_results_str: ' [{"name":"stackql-demo-001","status":"TERMINATED"}]'
+    
+    - name: Prep Google Creds (bash)
+      shell: bash
+      run: | ## use the base64 encoded secret to create json file
+        sudo echo ${{ secrets.GOOGLE_CREDS }} | base64 -d > sa-key.json
 
     - name: query test file example with auth_obj_path
       uses: ./
