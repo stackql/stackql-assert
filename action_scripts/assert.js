@@ -25,22 +25,24 @@ const getExpectedResult = (expectedResultStr, expectedResultFilePath) =>{
 
 const checkResult= (expectedResult, expectedRows, actualResult) =>{
     let equality;
+    let message;
+    equality = actualResult.length === expectedRows
+    message =`============ StackQL Assert Failed ============ \n
+    Expected Number of Rows: ${expectedRows} \n
+    Actual Number of Rows: ${actualResult.length}
+    Execution Result: ${JSON.stringify(actualResult)}
+    `
     if(expectedResult){
         equality = JSON.stringify(expectedResult) === JSON.stringify(actualResult)
-        core.setFailed(`============ StackQL Assert Failed ============ \n
+        message = `============ StackQL Assert Failed ============ \n
         Expected: ${JSON.stringify(expectedResult)} \n
         Actual: ${JSON.stringify(actualResult)}
-        `)
+        `
     }
-    else {
-        equality = actualResult.length === expectedRows
-        core.setFailed(`============ StackQL Assert Failed ============ \n
-        Expected Number of Rows: ${expectedRows} \n
-        Actual Number of Rows: ${actualResult.length}
-        Execution Result: ${JSON.stringify(actualResult)}
-        `)
+ 
+    if(!equality){
+        core.setFailed(message)
     }
-    return equality
 
 
 }
