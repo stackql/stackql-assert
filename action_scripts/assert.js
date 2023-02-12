@@ -45,7 +45,7 @@ const checkResult= (expectedResult, expectedRows, actualResult) =>{
 
 }
 
-export default (core) =>{
+module.exports = (core) =>{
     try{
         let execResultStr = core.getInput('result')
         let expectedResultStr = core.getInput('expected_result_str')
