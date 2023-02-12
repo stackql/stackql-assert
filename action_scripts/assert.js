@@ -24,7 +24,6 @@ const getExpectedResult = (expectedResultStr, expectedResultFilePath) =>{
 
 const checkResult= (expectedResult, expectedRows, actualResult) =>{
     let equality;
-
     if(expectedResult){
         equality = JSON.stringify(expectedResult) === JSON.stringify(actualResult)
         core.setFailed(`============ StackQL Assert Failed ============ \n
@@ -59,7 +58,7 @@ module.exports = (core) =>{
         let expectedResult = getExpectedResult(execResultStr, expectedResultFilePath)
         
 
-        const actualResult = JSON.parse(execResultStr)
+        const actualResult = JSON.parse(parseResult(execResultStr))
 
         if(!actualResult){
             core.setFailed('No Output from executing query');
