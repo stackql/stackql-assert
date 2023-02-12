@@ -17,7 +17,7 @@ inputs:
   expected_rows: 
     description: expected number of rows from executing test query
     required: false
-  expected_results:
+  expected_results_str:
     description: expected result from executing test query, support object string
     required: false
   expected_results_path:
