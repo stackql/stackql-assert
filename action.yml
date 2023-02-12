@@ -62,7 +62,7 @@ runs:
       env:
         RESULT: ${{steps.exec-query.outputs.stdout}}
         EXPECTED_RESULTS_STR: ${{ inputs.expected_results_str }}
-        EXPECTED_RESULTS_FILE_PATH: ${{inputs.expected_results_path}}
+        EXPECTED_RESULTS_FILE_PATH: ${{inputs.expected_results_file_path}}
         EXPECTED_ROWS: ${{inputs.expected_rows}}
 
     
