@@ -60,9 +60,9 @@ runs:
           const assert = require('./action_scripts/assert.js')
           assert(core)
         result: ${{steps.exec-query.outputs.stdout}}
-        expected_result_str: ${{ inputs.expected_results }}
-        expected_result_file_path: ${{inputs.expected_results_path}}
-        expected_rows: ${{inputs.expected_rows}}
+        # expected_result_str: ${{ inputs.expected_results }}
+        # expected_result_file_path: ${{inputs.expected_results_path}}
+        # expected_rows: ${{inputs.expected_rows}}
 
     
       
