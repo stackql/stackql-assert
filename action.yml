@@ -58,8 +58,9 @@ runs:
       uses: actions/github-script@v6
       with:
         script: |
-          const assert = require('./action_scripts/assert.js')
-          assert(core)
+          console.log('core is %o', core)
+          const assertResult = require('./action_scripts/assert.js')
+          assertResult(core)
       env:
         RESULT: ${{steps.exec-query.outputs.stdout}}
         EXPECTED_RESULTS_STR: ${{ inputs.expected_results_str }}
