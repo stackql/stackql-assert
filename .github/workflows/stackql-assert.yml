@@ -57,14 +57,14 @@ jobs:
             SELECT name, status
             FROM google.compute.instances 
             WHERE project = 'stackql-demo' AND zone = 'australia-southeast1-a' AND name = 'stackql-demo-001';
-        expected_results: ' [{"name":"stackql-demo-001","status":"TERMINATED"}]'
+        expected_results: '[{"name":"stackql-demo-001","status":"TERMINATED"}]'
 
     - name: query test file example with auth string
       uses: ./
       with:
         auth_str: '{ "google": { "type": "service_account",  "credentialsfilepath": "sa-key.json" }}'
         test_query_file_path: './stackql_scripts/google-example.iql'
-        expected_results: ' [{"name":"stackql-demo-001","status":"TERMINATED"}]'
+        expected_results: '[{"name":"stackql-demo-001","status":"TERMINATED"}]'
           
 
 
