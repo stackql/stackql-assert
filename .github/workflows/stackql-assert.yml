@@ -20,7 +20,7 @@ jobs:
       run: | ## use the base64 encoded secret to create json file
         sudo echo ${{ secrets.GOOGLE_CREDS }} | base64 -d > sa-key.json
 
-    - name: query test statement example with auth_obj_path
+    - name: Use test query string and expected results string with auth object
       uses: ./
       with:
         auth_obj_path: './.github/workflows/workflow_scripts/auth.json'
@@ -31,14 +31,14 @@ jobs:
             WHERE project = 'stackql-demo' AND zone = 'australia-southeast1-a' AND name = 'stackql-demo-001';
         expected_results_str: ' [{"name":"stackql-demo-001","status":"TERMINATED"}]'
 
-    - name: query test file example with auth_obj_path
+    - name: Use test query file and expected result string with auth object
       uses: ./
       with:
         auth_obj_path: './.github/workflows/workflow_scripts/auth.json'
         test_query_file_path: './.github/workflows/workflow_scripts/google-example.iql'
         expected_results_str: ' [{"name":"stackql-demo-001","status":"TERMINATED"}]'
 
-    - name: query test statement example with auth string
+    - name: Use test query string and expected results string, with auth string
       uses: ./
       with:
         auth_str: '{ "google": { "type": "service_account",  "credentialsfilepath": "sa-key.json" }}'
@@ -49,19 +49,19 @@ jobs:
             WHERE project = 'stackql-demo' AND zone = 'australia-southeast1-a' AND name = 'stackql-demo-001';
         expected_results_str: '[{"name":"stackql-demo-001","status":"TERMINATED"}]'
 
-    - name: query test file example with auth string
+    - name: Use test query string and expected results file, with auth object
       uses: ./
       with:
-        auth_str: '{ "google": { "type": "service_account",  "credentialsfilepath": "sa-key.json" }}'
+        auth_obj_path: './.github/workflows/workflow_scripts/auth.json'
         test_query_file_path: './.github/workflows/workflow_scripts/google-example.iql'
         expected_results_str: '[{"name":"stackql-demo-001","status":"TERMINATED"}]'
 
-    - name: query test file while expected result is a file
+    - name: Use test query string and expected rows, with auth object
       uses: ./
       with:
         auth_str: '{ "google": { "type": "service_account",  "credentialsfilepath": "sa-key.json" }}'
         test_query_file_path: './.github/workflows/workflow_scripts/google-example.iql'
-        expected_results_file_path: './.github/workflows/workflow_scripts/expected_results.json'
+        expected_rows: 1
           
 
 
