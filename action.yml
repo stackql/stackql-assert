@@ -18,7 +18,7 @@ inputs:
     description: expected number of rows from executing test query
     required: false
   expected_results_str:
-    description: expected result from executing test query, support object string, overrides expected_results_file_path
+    description: expected result from executing test query, support json string, overrides expected_results_file_path
     required: false
   expected_results_file_path:
     description: file that stores expected result, json is support
