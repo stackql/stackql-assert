@@ -12,7 +12,7 @@ if [ -z "$QUERY" ] && [ -z "$QUERY_FILE_PATH" ]; then
   exit 1
 fi
 
-if [ -n "$QUERY" ]; then
+if [ -z "$QUERY" ]; then
   stackql exec -i "$QUERY_FILE_PATH" --auth="${AUTH}" --output="${OUTPUT}"
 else
   stackql exec "$QUERY" --auth="${AUTH}" --output="${OUTPUT}"
