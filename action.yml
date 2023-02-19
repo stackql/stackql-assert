@@ -1,5 +1,5 @@
 name: 'StackQL Studios - stackql-assert'
-description: 'Github Action allows you to run test and audit against your infrastructure using StackQL'
+description: 'This Github Action allows you run StackQL query to test and audit your infrastructure. Automate testing and streamline auditing processes.'
 author: 'Yuncheng Yang, StackQL Studios'
 inputs:
   auth_obj_path:
