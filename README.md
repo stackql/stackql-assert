@@ -7,7 +7,7 @@ The `stackql/stackql-assert` action is an composite action that runs stackql que
 
 ## AUTH
 > **Note**
-> stackql-assert action uses same auth setup as [stackql-exec](https://github.com/stackql/stackql-exec/blob/main/README.md)
+> stackql-assert action uses same auth setup as [stackql-exec](https://github.com/stackql/stackql-exec/blob/main/README.md). 
 > [Learn more](https://stackql.io/docs/getting-started/authenticating) about authentication setup when running stackql
 
 ### Example auth string
