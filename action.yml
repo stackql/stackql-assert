@@ -18,7 +18,7 @@ inputs:
     description: expected number of rows from executing test query
     required: false
   expected_results_str:
-    description: expected result from executing test query, support object string
+    description: expected result from executing test query, support object string, overrides expected_results_file_path
     required: false
   expected_results_file_path:
     description: file that stores expected result, json is support
@@ -57,7 +57,7 @@ runs:
       uses: actions/github-script@v6
       with:
         script: |
-          const assertResult = require('./action_scripts/assert.js')
+          const {assertResult} = require('./stackql-assert.js')
           assertResult(core)
       env:
         RESULT: ${{steps.exec-query.outputs.stdout}}
