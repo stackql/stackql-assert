@@ -7,8 +7,14 @@ if [ -z "$AUTH" ]; then
   exit 1
 fi
 
-if [ -z "$QUERY_FILE_PATH" ]; then
-  stackql exec "$QUERY" --auth="${AUTH}" --output="${OUTPUT}" 
-else
-  stackql exec -i "$QUERY_FILE_PATH" --auth="${AUTH}" --output="${OUTPUT}" 
+if [ -z "$QUERY" ] && [ -z "$QUERY_FILE_PATH" ]; then
+  echo "ERROR: Either QUERY or QUERY_FILE_PATH must be set."
+  exit 1
 fi
+
+if [ -n "$QUERY" ]; then
+  stackql exec -i "$QUERY_FILE_PATH" --auth="${AUTH}" --output="${OUTPUT}"
+else
+  stackql exec "$QUERY" --auth="${AUTH}" --output="${OUTPUT}"
+fi
+
