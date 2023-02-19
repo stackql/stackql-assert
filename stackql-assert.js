@@ -33,6 +33,7 @@ const getExpectedResult = (expectedResultStr, expectedResultFilePath) => {
 const checkResult = (expectedResult, expectedRows, actualResult) => {
   let equality;
   let message;
+  expectedRows = parseInt(expectedRows);
   // if only passed expectedRows, check expectedRows
   // if only passed expected result, only check expected result
   // if both passed, check both
@@ -53,7 +54,6 @@ const checkResult = (expectedResult, expectedRows, actualResult) => {
         `;
   }
 
-  console.log('message is %o', message)
 
   return { equality, message };
 };

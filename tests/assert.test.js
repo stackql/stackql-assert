@@ -70,6 +70,15 @@ describe('checkResult', ()=>{
 
         expect(equality).toEqual(false);
     })
+
+    it('should return equality true when expected row is matching, but result object matches', ()=>{
+        const expectedRows = 1;
+        actualResult = [{"name":"stackql-demo-001","status":"TERMINATED"}]
+
+        const {equality} = checkResult(expectedResult, expectedRows, actualResult);
+
+        expect(equality).toEqual(true);
+    })
 })
 
 describe('getExpectedResult', ()=>{
@@ -160,5 +169,39 @@ describe('getExpectedResult', ()=>{
             expect(coreObj.setFailed).not.toHaveBeenCalled()
             expect(coreObj.info).toHaveBeenCalledWith(expect.stringContaining('StackQL Assert Succeed'))
         })
+
+        it('it should setFailed when actual result does not match expected rows', () => {
+            process.env.EXPECTED_RESULTS_STR= undefined;
+            process.env.EXPECTED_RESULTS_FILE_PATH = undefined;
+            process.env.EXPECTED_ROWS = 2
+
+            assertResult(coreObj)
+
+            expect(coreObj.setFailed).toHaveBeenCalledWith(expect.stringContaining('StackQL Assert Failed'))
+        });
+
+        it('it should not setFailed when actual result match expected rows', ()=>{
+            process.env.EXPECTED_RESULTS_STR= undefined;
+            process.env.EXPECTED_RESULTS_FILE_PATH = undefined;
+            process.env.EXPECTED_ROWS = 1
+
+            assertResult(coreObj)
+
+            expect(coreObj.setFailed).not.toHaveBeenCalled()
+            expect(coreObj.info).toHaveBeenCalledWith(expect.stringContaining('StackQL Assert Succeed'))
+        })
+
+        it('it should not setFailed when actual result match expected rows in string number', ()=>{
+            process.env.EXPECTED_RESULTS_STR= undefined;
+            process.env.EXPECTED_RESULTS_FILE_PATH = undefined;
+            process.env.EXPECTED_ROWS = '1'
+
+            assertResult(coreObj)
+
+            expect(coreObj.setFailed).not.toHaveBeenCalled()
+            expect(coreObj.info).toHaveBeenCalledWith(expect.stringContaining('StackQL Assert Succeed'))
+        })
+
+        
 
     })
