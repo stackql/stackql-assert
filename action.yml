@@ -1,5 +1,5 @@
 name: 'StackQL Studios - stackql-assert'
-description: 'A wrapper for executing a single command, maps all stackql exec args to actions args (supplied using with.'
+description: 'Github Action allows you to run test and audit against your infrastructure using StackQL'
 author: 'Yuncheng Yang, StackQL Studios'
 inputs:
   auth_obj_path:
