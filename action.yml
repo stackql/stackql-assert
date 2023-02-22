@@ -50,7 +50,7 @@ runs:
       with:
         script: |
           const {setupAuth} = require('./lib/utils.js')
-          setupAuth(core,exec)
+          setupAuth(core)
 
 
     - name: Execute query
