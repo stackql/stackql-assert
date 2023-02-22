@@ -60,8 +60,8 @@ runs:
       id: exec-query
       shell: bash
       run: |
-        chmod +x ./action_scripts/execute.sh
-        ./action_scripts/execute.sh
+        chmod +x ./lib/execute.sh
+        ./lib/execute.sh
       env:
         QUERY_FILE_PATH: ${{ inputs.test_query_file_path }}
         QUERY: ${{inputs.test_query}}
