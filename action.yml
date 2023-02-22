@@ -51,6 +51,9 @@ runs:
         script: |
           const {setupAuth} = require('./lib/utils.js')
           setupAuth(core)
+      env:
+        AUTH_FILE_NAME: ${{ inputs.auth_obj_path }}
+        AUTH_STR: ${{inputs.auth_str}}
 
 
     - name: Execute query
