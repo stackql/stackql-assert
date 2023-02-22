@@ -49,8 +49,8 @@ runs:
       uses: actions/github-script@v6
       with:
         script: |
-          const {setup-auth} = require('./lib/utils.js')
-          setup-auth(core,exec)
+          const {setupAuth} = require('./lib/utils.js')
+          setupAuth(core,exec)
 
 
     - name: Execute query
