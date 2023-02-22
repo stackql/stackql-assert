@@ -46,13 +46,12 @@ runs:
 
     - name: Setup auth
       id: setup-auth
-      shell: bash
-      run: |
-        chmod +x ./action_scripts/set_auth_env.sh
-        ./action_scripts/set_auth_env.sh
-      env:
-        AUTH_FILE: ${{inputs.auth_obj_path}}
-        AUTH_STR: ${{inputs.auth_str}}
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const {setup-auth} = require('./lib/utils.js')
+          setup-auth(core,exec)
+
 
     - name: Execute query
       id: exec-query
@@ -64,6 +63,7 @@ runs:
         QUERY_FILE_PATH: ${{ inputs.test_query_file_path }}
         QUERY: ${{inputs.test_query}}
         OUTPUT: 'json'
+        AUTH: ${{steps.setup-auth.outputs.auth}}
     
     - name: Check results
       uses: actions/github-script@v6
