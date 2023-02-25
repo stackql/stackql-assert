@@ -72,7 +72,6 @@ runs:
       with:
         script: |
           const {assertResult} = require('./stackql-assert.js')
-          console.log('assert result in script action is  %o', assertResult)
           assertResult(core)
       env:
         RESULT: ${{steps.exec-query.outputs.stdout}}
