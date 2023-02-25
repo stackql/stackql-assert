@@ -1,5 +1,4 @@
-const { assertResult } =  './lib/assert.js'
-console.log('assertResult is ============>%o', assertResult)
+const { assertResult } =  require('./lib/assert')
 module.exports ={
   assertResult
 }
