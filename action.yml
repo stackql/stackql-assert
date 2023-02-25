@@ -57,10 +57,10 @@ runs:
 
     - name: Execute query
       id: exec-query
-      shell: bash
+      uses: actions/github-script@v6
       run: |
-        chmod +x ./lib/execute.sh
-        ./lib/execute.sh
+        const {executeStackql} = require('./lib/utils.js')
+        await executeStackql(core, exec)
       env:
         QUERY_FILE_PATH: ${{ inputs.test_query_file_path }}
         QUERY: ${{inputs.test_query}}
