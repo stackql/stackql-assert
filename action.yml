@@ -58,9 +58,10 @@ runs:
     - name: Execute query
       id: exec-query
       uses: actions/github-script@v6
-      run: |
-        const {executeStackql} = require('./lib/utils.js')
-        await executeStackql(core, exec)
+      with:
+        script: |
+          const {executeStackql} = require('./lib/utils.js')
+          await executeStackql(core, exec)
       env:
         QUERY_FILE_PATH: ${{ inputs.test_query_file_path }}
         QUERY: ${{inputs.test_query}}
