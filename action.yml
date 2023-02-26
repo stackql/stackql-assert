@@ -67,7 +67,7 @@ runs:
         OUTPUT: 'json'
     
     - name: execute stackql command
-      id: exec-stackql
+      id: exec-query
       shell: bash
       run: |
         ${{ env.STACKQL_COMMAND }}
