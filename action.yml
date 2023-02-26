@@ -1,4 +1,4 @@
-name: 'StackQL Studios - stackql-assert'
+name: 'StackQL Studios - StackQL Assert'
 description: 'run StackQL query to test and audit your infrastructure.'
 author: 'Yuncheng Yang, StackQL Studios'
 inputs:
@@ -55,17 +55,22 @@ runs:
         AUTH_FILE_PATH: ${{ inputs.auth_obj_path }}
         AUTH_STR: ${{inputs.auth_str}}
 
-    - name: Execute query
-      id: exec-query
+    - name: get stackql command
       uses: actions/github-script@v6
       with:
         script: |
-          const {executeStackql} = require('./lib/utils.js')
-          await executeStackql(core)
+          const {getStackqlCommand} = require('./lib/utils.js')
+          getStackqlCommand(core)
       env:
         QUERY_FILE_PATH: ${{ inputs.test_query_file_path }}
         QUERY: ${{inputs.test_query}}
         OUTPUT: 'json'
+    
+    - name: execute stackql command
+      id: exec-stackql
+      shell: bash
+      run: |
+        ${{ env.STACKQL_COMMAND }}
     
     - name: Check results
       uses: actions/github-script@v6
