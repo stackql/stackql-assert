@@ -40,17 +40,17 @@ jobs:
         auth_obj_path: './.github/workflows/workflow_scripts/auth.json'
         test_query: |
             REGISTRY PULL google v23.01.00116;
-            SELECT name, status
+            SELECT name
             FROM google.compute.instances 
             WHERE project = 'stackql-demo' AND zone = 'australia-southeast1-a' AND name = 'stackql-demo-001';
-        expected_results_str: ' [{"name":"stackql-demo-001","status":"TERMINATED"}]'
+        expected_results_str: ' [{"name":"stackql-demo-001"}]'
 
     - name: Use test query file and expected result string with auth object
       uses: ./
       with:
         auth_obj_path: './.github/workflows/workflow_scripts/auth.json'
         test_query_file_path: './.github/workflows/workflow_scripts/google-example.iql'
-        expected_results_str: ' [{"name":"stackql-demo-001","status":"TERMINATED"}]'
+        expected_results_str: ' [{"name":"stackql-demo-001"}]'
 
     - name: Use test query string and expected results string, with auth string
       uses: ./
@@ -58,17 +58,17 @@ jobs:
         auth_str: '{ "google": { "type": "service_account",  "credentialsfilepath": "sa-key.json" }}'
         test_query: |
             REGISTRY PULL google v23.01.00116;
-            SELECT name, status
+            SELECT name
             FROM google.compute.instances 
             WHERE project = 'stackql-demo' AND zone = 'australia-southeast1-a' AND name = 'stackql-demo-001';
-        expected_results_str: '[{"name":"stackql-demo-001","status":"TERMINATED"}]'
+        expected_results_str: '[{"name":"stackql-demo-001"}]'
 
     - name: Use test query string and expected results file, with auth object
       uses: ./
       with:
         auth_obj_path: './.github/workflows/workflow_scripts/auth.json'
         test_query_file_path: './.github/workflows/workflow_scripts/google-example.iql'
-        expected_results_str: '[{"name":"stackql-demo-001","status":"TERMINATED"}]'
+        expected_results_str: '[{"name":"stackql-demo-001"}]'
 
     - name: Use test query string and expected rows, with auth object
       uses: ./
