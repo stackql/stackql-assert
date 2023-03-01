@@ -38,7 +38,7 @@ env:
 - `auth_obj_path` - Path to the auth object file.
 - `auth_str` - Auth string.
 - `test_query` - Test query to run (overrides test_query_path).
-- `test_query_path` - Path to the test query file.
+- `test_query_file_path` - Path to the test query file.
 - `expected_rows` - Expected number of rows in the result.
 - `expected_results_str` - expected result from executing test query, support object string (overrides expected_results_file_path)
 - `expected_results_file_path` - file that stores expected result, json is support
