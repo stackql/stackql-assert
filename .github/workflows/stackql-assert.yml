@@ -80,7 +80,7 @@ jobs:
     - name: Check instances number query
       uses: ./
       with:
-        auth_str: '{ "google": { "type": "service_account",  "credentialsfilepath": "sa-key.json" }}'
+        auth_obj_path: './.github/workflows/workflow_scripts/auth.json'
         test_query_file_path: './.github/workflows/workflow_scripts/check-instances.iql'
         expected_rows: 4
           
