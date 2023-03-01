@@ -77,6 +77,12 @@ jobs:
         test_query_file_path: './.github/workflows/workflow_scripts/google-example.iql'
         expected_rows: 1
 
+    - name: stop running instances using stackql-exec
+      uses: stackql/stackql-exec@v1.0.1
+      with:
+        auth_obj_path: './.github/workflows/workflow_scripts/auth.json'
+        query_file_path: './.github/workflows/workflow_scripts/stop-instances.iql'
+
     - name: Check instances number query
       uses: ./
       with:
