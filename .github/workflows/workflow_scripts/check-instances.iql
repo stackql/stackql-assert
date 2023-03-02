@@ -5,6 +5,7 @@
     nameLike: 'actions-test-',
 }
 >>>
+REGISTRY PULL google v23.01.00116;
 SELECT id, name 
 FROM google.compute.instances 
 WHERE project = '{{.project}}' 
