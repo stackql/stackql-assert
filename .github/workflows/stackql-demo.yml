@@ -54,7 +54,7 @@ jobs:
         uses: ./
         with:
           auth_obj_path: './.github/workflows/workflow_scripts/auth.json'
-          test_query_file_path: './.github/workflows/workflow_scripts/check-instances.iql'
+          test_query_file_path: './.github/workflows/workflow_scripts/google-example.iql'
           expected_rows: 4
 
       # - name: check if we have 4 instances using stackql-assert on marketplace
