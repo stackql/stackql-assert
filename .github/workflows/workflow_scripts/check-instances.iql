@@ -5,9 +5,6 @@
     nameLike: 'actions-test-',
 }
 >>>
-REGISTRY PULL google v23.01.00116;
-SELECT id, name 
+SELECT name
 FROM google.compute.instances 
-WHERE project = '{{.project}}' 
-AND zone = '{{.zone}}'
-AND name LIKE '{{.nameLike}}%';
+WHERE project = 'stackql-demo' AND zone = 'australia-southeast1-a' AND name = 'stackql-demo-001';
