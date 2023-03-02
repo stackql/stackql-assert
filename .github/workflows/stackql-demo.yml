@@ -21,10 +21,10 @@ jobs:
 
       - name: prep Google creds
         env: 
-          GOOGLE_CREDS: ${{ secrets.GOOGLE_CREDS_DEMO }}
+          GOOGLE_CREDS: ${{ secrets.GOOGLE_CREDS }}
         shell: bash
         run: | 
-          sudo echo $GOOGLE_CREDS > sa-key.json    
+          sudo echo $GOOGLE_CREDS | base64 -d > sa-key.json  
       - name: setup StackQL
         uses: stackql/setup-stackql@v1.1.0
 

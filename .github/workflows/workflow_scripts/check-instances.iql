@@ -1,10 +1,3 @@
-<<<jsonnet
-{
-    project: 'stackql-demo-2',
-    zone: 'australia-southeast1-b',
-    nameLike: 'actions-test-',
-}
->>>
 SELECT name
 FROM google.compute.instances 
 WHERE project = 'stackql-demo' AND zone = 'australia-southeast1-a' AND name = 'stackql-demo-001';
