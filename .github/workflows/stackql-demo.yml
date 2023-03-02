@@ -18,10 +18,10 @@ jobs:
 
       - name: prep Google creds
         env: 
-          GOOGLE_CREDS: ${{ secrets.GOOGLE_CREDS }}
+          GOOGLE_CREDS: ${{ secrets.GOOGLE_CREDS_DEMO }}
         shell: bash
         run: | 
-          sudo echo $GOOGLE_CREDS | base64 -d > sa-key.json  
+          sudo echo $GOOGLE_CREDS > sa-key.json  
 
       - name: pull Google docs
         uses: stackql/stackql-exec@v1.0.1
