@@ -18,7 +18,7 @@ jobs:
 
       - name: prep Google creds
         env: 
-          GOOGLE_CREDS: ${{ secrets.GOOGLE_CREDS_DEMO }}
+          GOOGLE_CREDS: ${{ secrets.GOOGLE_DEMO_CREDS }}
         shell: bash
         run: | 
           sudo echo $GOOGLE_CREDS > sa-key.json  
@@ -45,12 +45,12 @@ jobs:
           auth_obj_path: './.github/workflows/workflow_scripts/auth.json'
           query_file_path: './.github/workflows/workflow_scripts/stop-instances.iql'
 
-      # - name: check if we have 4 instances using stackql-assert from local
-      #   uses: ./
-      #   with:
-      #     auth_obj_path: './.github/workflows/workflow_scripts/auth.json'
-      #     test_query_file_path: './.github/workflows/workflow_scripts/check-instances.iql'
-      #     expected_rows: 4
+      - name: check if we have 4 instances using stackql-assert from local
+        uses: ./
+        with:
+          auth_obj_path: './.github/workflows/workflow_scripts/auth.json'
+          test_query_file_path: './.github/workflows/workflow_scripts/check-instances.iql'
+          expected_rows: 4
 
       # - name: check if we have 4 instances using stackql-assert on marketplace
       #   uses: stackql/stackql-assert@v1.0.2
