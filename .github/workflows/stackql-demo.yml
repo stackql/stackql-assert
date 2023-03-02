@@ -29,21 +29,21 @@ jobs:
           auth_obj_path: ./.github/workflows/workflow_scripts/auth.json
           query: "REGISTRY PULL google"
 
-      - name: dry run StackQL query
-        shell: bash
-        run: |
-          stackql exec -i ./.github/workflows/workflow_scripts/deploy-instances.iql --output text -H --dryrun
-      - name: deploy instances using stackql-exec
-        uses: stackql/stackql-exec@v1.0.1
-        with:
-          auth_obj_path: './.github/workflows/workflow_scripts/auth.json'
-          query_file_path: './.github/workflows/workflow_scripts/deploy-instances.iql'
+      # - name: dry run StackQL query
+      #   shell: bash
+      #   run: |
+      #     stackql exec -i ./.github/workflows/workflow_scripts/deploy-instances.iql --output text -H --dryrun
+      # - name: deploy instances using stackql-exec
+      #   uses: stackql/stackql-exec@v1.0.1
+      #   with:
+      #     auth_obj_path: './.github/workflows/workflow_scripts/auth.json'
+      #     query_file_path: './.github/workflows/workflow_scripts/deploy-instances.iql'
 
-      - name: stop running instances using stackql-exec
-        uses: stackql/stackql-exec@v1.0.1
-        with:
-          auth_obj_path: './.github/workflows/workflow_scripts/auth.json'
-          query_file_path: './.github/workflows/workflow_scripts/stop-instances.iql'
+      # - name: stop running instances using stackql-exec
+      #   uses: stackql/stackql-exec@v1.0.1
+      #   with:
+      #     auth_obj_path: './.github/workflows/workflow_scripts/auth.json'
+      #     query_file_path: './.github/workflows/workflow_scripts/stop-instances.iql'
 
       - name: check if we have 4 instances using stackql-assert from local
         uses: ./
