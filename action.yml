@@ -42,7 +42,6 @@ runs:
         else
             echo "stackql_installed=false" >> $GITHUB_OUTPUT
         fi
-
         
     - name: Setup StackQL
       uses: stackql/setup-stackql@v1.2.0
