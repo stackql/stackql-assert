@@ -77,7 +77,24 @@ runs:
         DATA_FILE_PATH: ${{inputs.data_file_path}}
         VARS: ${{inputs.vars}}
         OUTPUT: 'json'
-    
+
+    - name: dryrun stackql command
+      id: dryrun-query
+      shell: bash
+      run: |
+        ${{ env.STACKQL_DRYRUN_COMMAND }}
+
+    - name: show rendered stackql query
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const path = require('path');
+          const utilsPath = path.join(process.env.GITHUB_ACTION_PATH, 'lib', 'utils.js')
+          const {getStackqlCommand} = require(utilsPath)
+          showStackQLQuery(core)        
+      env:
+        DRYRUN_RESULT: ${{steps.dryrun-query.outputs.stdout}}
+
     - name: execute stackql command
       id: exec-query
       shell: bash
@@ -97,9 +114,6 @@ runs:
         EXPECTED_RESULTS_STR: ${{ inputs.expected_results_str }}
         EXPECTED_RESULTS_FILE_PATH: ${{inputs.expected_results_file_path}}
         EXPECTED_ROWS: ${{inputs.expected_rows}}
-
-
-    
       
 branding:
   icon: 'terminal'
