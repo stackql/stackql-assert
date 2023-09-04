@@ -33,7 +33,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Check StackQL is installed and set output
+    - name: check if stackql is installed and set output
       id: check-stackql
       shell: bash
       run: |
@@ -43,13 +43,14 @@ runs:
             echo "stackql_installed=false" >> $GITHUB_OUTPUT
         fi
         
-    - name: Setup StackQL
+    - name: setup stackql
       uses: stackql/setup-stackql@v1.2.0
       if: ${{steps.check-stackql.outputs.stackql_installed == 'false'}}
       with:
         use_wrapper: true
 
-    - name: Setup auth
+    - name: setup auth
+      if: (inputs.auth_obj_path != '') || (inputs.auth_str != '')
       id: setup-auth
       uses: actions/github-script@v6
       with:
@@ -92,7 +93,8 @@ runs:
           const {showStackQLQuery} = require(utilsPath)
           showStackQLQuery(core)        
       env:
-        DRYRUN_RESULT: ${{steps.dryrun-query.outputs.stdout}}
+        # DRYRUN_RESULT: ${{steps.dryrun-query.outputs.stdout}}
+        DRYRUN_RESULT: ${{steps}}
 
     - name: execute stackql command
       id: exec-query
