@@ -1,5 +1,2 @@
-REGISTRY PULL github v23.01.00104;
-SHOW PROVIDERS;
-select total_private_repos
-from github.orgs.orgs
-where org = 'stackql';
+REGISTRY PULL github;
+SELECT name FROM github.repos.repos WHERE org = '{{ .org }}' AND name = '{{ .repo }}';
