@@ -63,8 +63,8 @@ jobs:
     - name: Use test query string and expected results file, with auth object
       uses: ./
       with:
-        test_query_file_path: './.github/workflows/workflow_scripts/google-example.iql'
-        data_file_path: './.github/workflows/workflow_scripts/google-example-data.jsonnet'
+        test_query_file_path: './.github/workflows/workflow_scripts/github-example.iql'
+        data_file_path: './.github/workflows/workflow_scripts/github-example-data.jsonnet'
         vars: TEST_ORG=${{ env.TEST_ORG }},TEST_REPO=${{ env.TEST_REPO }}
         expected_rows: 1        
       env:
