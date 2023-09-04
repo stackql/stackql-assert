@@ -1,4 +1,3 @@
-REGISTRY PULL google v23.01.00116;
 SELECT name
 FROM google.compute.instances 
 WHERE project = 'stackql-demo' AND zone = 'australia-southeast1-a' AND name = 'stackql-demo-001';

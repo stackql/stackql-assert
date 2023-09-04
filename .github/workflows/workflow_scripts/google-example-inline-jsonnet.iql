@@ -1,0 +1,11 @@
+<<<jsonnet
+local project = std.extVar("GOOGLE_PROJECT");
+local zone = std.extVar("GOOGLE_ZONE");
+{
+   project: project,
+   zone: zone,
+}
+>>>
+SELECT name
+FROM google.compute.instances
+WHERE project = '{{ .project }}' and zone = '{{ .zone }}' and name = 'stackql-demo-001';
