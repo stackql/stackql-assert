@@ -93,8 +93,7 @@ runs:
           const {showStackQLQuery} = require(utilsPath)
           showStackQLQuery(core)        
       env:
-        # DRYRUN_RESULT: ${{steps.dryrun-query.outputs.stdout}}
-        DRYRUN_RESULT: ${{steps}}
+        DRYRUN_RESULT: ${{steps.dryrun-query.outputs.stdout}}
 
     - name: execute stackql command
       id: exec-query
