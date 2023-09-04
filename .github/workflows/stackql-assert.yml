@@ -60,7 +60,7 @@ jobs:
     #
     # Example `test_query_file_path` with `expected_rows` supplying `vars` using `jsonnet` config provided using `data_file_path`
     #
-    - name: Use test query string and expected results file, with auth object
+    - name: Use test query file with a jsonnet data file sourcing external vars and an expected row count
       uses: ./
       with:
         test_query_file_path: './.github/workflows/workflow_scripts/github-example.iql'
