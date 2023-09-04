@@ -90,7 +90,7 @@ runs:
         script: |
           const path = require('path');
           const utilsPath = path.join(process.env.GITHUB_ACTION_PATH, 'lib', 'utils.js')
-          const {getStackqlCommand} = require(utilsPath)
+          const {showStackQLQuery} = require(utilsPath)
           showStackQLQuery(core)        
       env:
         DRYRUN_RESULT: ${{steps.dryrun-query.outputs.stdout}}
