@@ -34,13 +34,13 @@ runs:
   using: "composite"
   steps:
     - name: Setup StackQL
-      uses: stackql/setup-stackql@v2.2.0
+      uses: stackql/setup-stackql@v2.2.1
       with:
         use_wrapper: true
 
     - name: Execute StackQL Command
       id: exec-query
-      uses: stackql/stackql-exec@v2.2.0
+      uses: stackql/stackql-exec@v2.2.1
       with:
         query: ${{ inputs.test_query }}
         query_file_path: ${{ inputs.test_query_file_path }}

@@ -1,3 +1,5 @@
+[![StackQL Assert](https://github.com/stackql/stackql-assert/actions/workflows/stackql-assert-test.yml/badge.svg)](https://github.com/stackql/stackql-assert/actions/workflows/stackql-assert-test.yml) 
+
 # stackql-assert
 
 The `stackql/stackql-assert` action is an composite action that runs a `stackql` query and checks if the result matches an expected result
