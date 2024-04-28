@@ -38,21 +38,9 @@ runs:
       with:
         use_wrapper: true
 
-    - name: Execute StackQL Command (Dry Run)
-      id: exec-query-dry-run
-      uses: stackql/stackql-exec@v2.1.1
-      with:
-        query: ${{ inputs.test_query }}
-        query_file_path: ${{ inputs.test_query_file_path }}
-        data_file_path: ${{ inputs.data_file_path }}
-        vars: ${{ inputs.vars }}
-        auth_obj_path: ${{ inputs.auth_obj_path }}
-        auth_str: ${{ inputs.auth_str }}
-        dry_run: true
-
     - name: Execute StackQL Command
       id: exec-query
-      uses: stackql/stackql-exec@v2.1.1
+      uses: stackql/stackql-exec@v2.1.2
       with:
         query: ${{ inputs.test_query }}
         query_file_path: ${{ inputs.test_query_file_path }}
