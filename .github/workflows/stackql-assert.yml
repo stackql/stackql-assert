@@ -1,4 +1,4 @@
-name: 'StackQL Assert'
+name: 'stackql-assert'
 
 on:
   push:
@@ -16,6 +16,15 @@ jobs:
     steps: 
     - name: Checkout
       uses: actions/checkout@v3
+
+    #
+    # Pull required providers
+    #
+    - name: Use test query string and expected rows
+      uses: stackql/stackql-exec@v2.1.1
+      with:
+        is_command: true
+        query: "REGISTRY PULL google"
 
     #
     # Example `test_query` with `expected_rows`
