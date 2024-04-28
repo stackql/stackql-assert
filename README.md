@@ -6,19 +6,21 @@ The `stackql/stackql-assert` action is an composite action that runs a `stackql`
 
 # Usage
 
+> This action uses the [setup-stackql](https://github.com/marketplace/actions/stackql-studios-setup-stackql) and [stackql-exec](https://github.com/marketplace/actions/stackql-studios-stackql-exec) actions
+
 ## Provider Authentication
 Authentication to StackQL providers is done via environment variables source from GitHub Actions Secrets.  To learn more about authentication, see the setup instructions for your provider or providers at the [StackQL Provider Registry Docs](https://stackql.io/registry).
 
 ## Inputs
-- `test_query` - stackql query to execute **(need to supply either `test_query` or `test_query_file_path`)**
-- `test_query_file_path` - stackql query file to execute **(need to supply either `test_query` or `test_query_file_path`)**
-- `data_file_path` - (optional) path to data file to pass to the stackql query preprocessor (`json` or `jsonnet`)
-- `vars` - (optional) comma delimited list of variables to pass to the stackql query preprocessor (supported with `jsonnet` config blocks or `jsonnet` data files only), accepts `var1=val1,var2=val2`, can be used to source environment variables into stackql queries 
-- `expected_rows` - (optional) Expected number of rows in the result.
-- `expected_results_str` - (optional) Expected result (`json`) from executing test query, support object string (overrides `expected_results_file_path`)
-- `expected_results_file_path` - (optional) Results file (`json`) that stores expected result, json is support
-- `auth_obj_path` - (optional) the path of json file that stores stackql AUTH string **(only required when using non-standard environment variable names)**
-- `auth_str` - (optional) stackql AUTH string **(only required when using non-standard environment variable names)**
+- **`test_query`** - stackql query to execute *(need to supply either `test_query` or `test_query_file_path`)*
+- **`test_query_file_path`** - stackql query file to execute *(need to supply either `test_query` or `test_query_file_path`)*
+- **`data_file_path`** - (optional) path to data file to pass to the stackql query preprocessor (`json` or `jsonnet`)
+- **`vars`** - (optional) comma delimited list of variables to pass to the stackql query preprocessor (supported with `jsonnet` config blocks or `jsonnet` data files only), accepts `var1=val1,var2=val2`, can be used to source environment variables into stackql queries 
+- **`expected_rows`** - (optional) Expected number of rows in the result.
+- **`expected_results_str`** - (optional) Expected result (`json`) from executing test query, support object string (overrides `expected_results_file_path`)
+- **`expected_results_file_path`** - (optional) Results file (`json`) that stores expected result, json is support
+- **`auth_obj_path`** - (optional) the path of json file that stores stackql AUTH string *(only required when using non-standard environment variable names)*
+- **`auth_str`** - (optional) stackql AUTH string *(only required when using non-standard environment variable names)*
 
 **__NOTE:__ one of `expected_rows`, `expected_results_str` or `expected_results_file_path` is required**
 
@@ -30,7 +32,7 @@ Authentication to StackQL providers is done via environment variables source fro
 ## Expected Result
 - Use `expected_results_str` or `expected_results_file_path` or `expected_rows` to pass the expected result to the action. The expected result (`expected_results_str` or `expected_results_file_path`) should be a valid `json` object. The action will compare the result with the expected result. If the result is not the same as the expected result, the action will fail the step.
 - Either `expected_results_str` or `expected_results_file_path` or `expected_rows` are required. If `expected_results_str` and `expected_results_file_path` are provided, `expected_results_str` will be used.  
-- Expected result example can be found in [example workflow](./.github/workflows/stackql-assert.yml) and [example .json file](./.github/workflows/workflow_scripts)
+- Expected result example can be found in [example workflow](./.github/workflows/stackql-assert-test.yml) and [example .json file](./.github/workflows/workflow_scripts)
 
 ## Examples
 The following excerpts from a GitHub Actions workflow demonstrate how to use the `stackql/stackql-assert` action.
