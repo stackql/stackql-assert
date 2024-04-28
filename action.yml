@@ -1,120 +1,69 @@
 name: 'StackQL Studios - StackQL Assert'
-description: 'run StackQL query to test and audit your infrastructure.'
+description: 'Run StackQL query to test and audit your infrastructure.'
 author: 'Yuncheng Yang, StackQL Studios'
 inputs:
   test_query:
-    description:  stackql query to execute (need to supply either test_query or test_query_file_path)
+    description: 'StackQL query to execute (supply either test_query or test_query_file_path)'
     required: false
   test_query_file_path:
-    description: stackql query file to execute (need to supply either test_query or test_query_file_path)
+    description: 'StackQL query file to execute (supply either test_query or test_query_file_path)'
     required: false
   data_file_path:
-    description: path to data file to pass to the stackql query preprocessor (json or jsonnet file)
+    description: 'Path to data file to pass to the StackQL query preprocessor (JSON or Jsonnet file)'
     required: false
   vars:
-    description: comma delimited list of variables to pass to the stackql query preprocessor (supported with jsonnet config blocks or jsonnet data files only), accepts 'var1=val1,var2=val2', can be used to source environment variables into stackql queries 
+    description: 'Comma delimited list of variables to pass to the StackQL query preprocessor (supported with Jsonnet config blocks or Jsonnet data files only)'
     required: false
-  expected_rows: 
-    description: expected number of rows from executing test query
+  expected_rows:
+    description: 'Expected number of rows from executing test query'
     required: false
   expected_results_str:
-    description: expected result (as a json string) from executing test query, overrides expected_results_file_path
+    description: 'Expected result (as a JSON string) from executing test query, overrides expected_results_file_path'
     required: false
   expected_results_file_path:
-    description: json file with the expected result
+    description: 'JSON file with the expected result'
     required: false
   auth_obj_path:
-    description: the path of json file that stores stackql AUTH string (only required when using non-standard environment variable names)
+    description: 'Path of JSON file that stores StackQL AUTH string (only required when using non-standard environment variable names)'
     required: false
   auth_str:
-    description: stackql AUTH string (only required when using non-standard environment variable names)
+    description: 'StackQL AUTH string (only required when using non-standard environment variable names)'
     required: false
 
 runs:
   using: "composite"
   steps:
-    - name: check if stackql is installed and set output
-      id: check-stackql
-      shell: bash
-      run: |
-        if command -v stackql &> /dev/null; then
-            echo "stackql_installed=true" >> $GITHUB_OUTPUT
-        else
-            echo "stackql_installed=false" >> $GITHUB_OUTPUT
-        fi
-        
-    - name: setup stackql
-      uses: stackql/setup-stackql@v1.2.0
-      if: ${{steps.check-stackql.outputs.stackql_installed == 'false'}}
+    - name: Setup StackQL
+      uses: stackql/setup-stackql@v2.2.1
       with:
         use_wrapper: true
 
-    - name: setup auth
-      if: (inputs.auth_obj_path != '') || (inputs.auth_str != '')
-      id: setup-auth
-      uses: actions/github-script@v6
-      with:
-        script: |
-          const path = require('path');
-          const utilsPath = path.join(process.env.GITHUB_ACTION_PATH, 'lib', 'utils.js')
-          const {setupAuth} = require(utilsPath)
-          setupAuth(core)
-      env:
-        AUTH_FILE_PATH: ${{ inputs.auth_obj_path }}
-        AUTH_STR: ${{inputs.auth_str}}
-
-    - name: get stackql command
-      uses: actions/github-script@v6
-      with:
-        script: |
-          const path = require('path');
-          const utilsPath = path.join(process.env.GITHUB_ACTION_PATH, 'lib', 'utils.js')
-          const {getStackqlCommand} = require(utilsPath)
-          getStackqlCommand(core)
-      env:
-        QUERY_FILE_PATH: ${{ inputs.test_query_file_path }}
-        QUERY: ${{inputs.test_query}}
-        DATA_FILE_PATH: ${{inputs.data_file_path}}
-        VARS: ${{inputs.vars}}
-        OUTPUT: 'json'
-
-    - name: dryrun stackql command
-      id: dryrun-query
-      shell: bash
-      run: |
-        ${{ env.STACKQL_DRYRUN_COMMAND }}
-
-    - name: show rendered stackql query
-      uses: actions/github-script@v6
-      with:
-        script: |
-          const path = require('path');
-          const utilsPath = path.join(process.env.GITHUB_ACTION_PATH, 'lib', 'utils.js')
-          const {showStackQLQuery} = require(utilsPath)
-          showStackQLQuery(core)        
-      env:
-        DRYRUN_RESULT: ${{steps.dryrun-query.outputs.stdout}}
-
-    - name: execute stackql command
+    - name: Execute StackQL Command
       id: exec-query
-      shell: bash
-      run: |
-        ${{ env.STACKQL_COMMAND }}
-    
-    - name: Check results
-      uses: actions/github-script@v6
+      uses: stackql/stackql-exec@v2.2.1
+      with:
+        query: ${{ inputs.test_query }}
+        query_file_path: ${{ inputs.test_query_file_path }}
+        data_file_path: ${{ inputs.data_file_path }}
+        vars: ${{ inputs.vars }}
+        auth_obj_path: ${{ inputs.auth_obj_path }}
+        auth_str: ${{ inputs.auth_str }}
+        dry_run: false
+
+    - name: Check Results
+      uses: actions/github-script@v7.0.1
       with:
         script: |
           const path = require('path');
-          const assertPath = path.join(process.env.GITHUB_ACTION_PATH, 'stackql-assert.js')
+          const assertPath = path.join(process.env.GITHUB_ACTION_PATH, 'lib', 'assert.js')
           const {assertResult} = require(assertPath)
           assertResult(core)
       env:
-        RESULT: ${{steps.exec-query.outputs.stdout}}
+        RESULT: ${{ steps.exec-query.outputs.stackql-query-results }}
         EXPECTED_RESULTS_STR: ${{ inputs.expected_results_str }}
-        EXPECTED_RESULTS_FILE_PATH: ${{inputs.expected_results_file_path}}
-        EXPECTED_ROWS: ${{inputs.expected_rows}}
-      
+        EXPECTED_RESULTS_FILE_PATH: ${{ inputs.expected_results_file_path }}
+        EXPECTED_ROWS: ${{ inputs.expected_rows }}
+
 branding:
   icon: 'terminal'
   color: 'green'

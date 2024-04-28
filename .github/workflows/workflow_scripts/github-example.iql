@@ -1,2 +1,1 @@
-REGISTRY PULL github;
 SELECT name FROM github.repos.repos WHERE org = '{{ .org }}' AND name = '{{ .repo }}';

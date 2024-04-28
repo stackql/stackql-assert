@@ -1,4 +1,4 @@
-name: 'StackQL Assert'
+name: 'stackql-assert'
 
 on:
   push:
@@ -15,7 +15,16 @@ jobs:
 
     steps: 
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4.1.4
+
+    #
+    # Pull required providers
+    #
+    - name: pull required providers
+      uses: stackql/stackql-exec@v2.2.1
+      with:
+        is_command: true
+        query: "REGISTRY PULL google; REGISTRY PULL github"
 
     #
     # Example `test_query` with `expected_rows`
@@ -24,7 +33,6 @@ jobs:
       uses: ./
       with:
         test_query: |
-            REGISTRY PULL google;
             SELECT name
             FROM google.compute.instances 
             WHERE project = 'stackql-demo' AND zone = 'australia-southeast1-a' AND name = 'stackql-demo-001';
