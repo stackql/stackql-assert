@@ -21,7 +21,7 @@ jobs:
     # Pull required providers
     #
     - name: pull required providers
-      uses: stackql/stackql-exec@v2.1.1
+      uses: stackql/stackql-exec@v2.2.0
       with:
         is_command: true
         query: "REGISTRY PULL google; REGISTRY PULL github"

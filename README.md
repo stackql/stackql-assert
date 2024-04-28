@@ -40,7 +40,6 @@ The following excerpts from a GitHub Actions workflow demonstrate how to use the
       uses: ./
       with:
         test_query: |
-            REGISTRY PULL google;
             SELECT name
             FROM google.compute.instances 
             WHERE project = 'stackql-demo' AND zone = 'australia-southeast1-a' AND name = 'stackql-demo-001';
