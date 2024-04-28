@@ -20,7 +20,7 @@ jobs:
     #
     # Pull required providers
     #
-    - name: Use test query string and expected rows
+    - name: pull required providers
       uses: stackql/stackql-exec@v2.1.1
       with:
         is_command: true
@@ -33,7 +33,6 @@ jobs:
       uses: ./
       with:
         test_query: |
-            REGISTRY PULL google;
             SELECT name
             FROM google.compute.instances 
             WHERE project = 'stackql-demo' AND zone = 'australia-southeast1-a' AND name = 'stackql-demo-001';
