@@ -24,7 +24,7 @@ jobs:
       uses: stackql/stackql-exec@v2.1.1
       with:
         is_command: true
-        query: "REGISTRY PULL google"
+        query: "REGISTRY PULL google; REGISTRY PULL github"
 
     #
     # Example `test_query` with `expected_rows`
