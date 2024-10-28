@@ -6,7 +6,7 @@ The `stackql/stackql-assert` action is an composite action that runs a `stackql`
 
 # Usage
 
-> This action uses the [setup-stackql](https://github.com/marketplace/actions/stackql-studios-setup-stackql) and [stackql-exec](https://github.com/marketplace/actions/stackql-studios-stackql-exec) actions
+> This action uses the [setup-stackql](https://github.com/marketplace/actions/setup-stackql) and [stackql-exec](https://github.com/marketplace/actions/stackql-exec) actions
 
 ## Provider Authentication
 Authentication to StackQL providers is done via environment variables source from GitHub Actions Secrets.  To learn more about authentication, see the setup instructions for your provider or providers at the [StackQL Provider Registry Docs](https://stackql.io/registry).
