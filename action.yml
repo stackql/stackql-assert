@@ -1,4 +1,4 @@
-name: 'StackQL Studios - StackQL Assert'
+name: 'stackql-assert'
 description: 'Run StackQL query to test and audit your infrastructure.'
 author: 'Yuncheng Yang, StackQL Studios'
 inputs:
@@ -66,4 +66,4 @@ runs:
 
 branding:
   icon: 'terminal'
-  color: 'green'
+  color: 'blue'
