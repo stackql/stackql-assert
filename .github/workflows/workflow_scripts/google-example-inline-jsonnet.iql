@@ -8,4 +8,4 @@ local zone = std.extVar("GOOGLE_ZONE");
 >>>
 SELECT name
 FROM google.compute.instances
-WHERE project = '{{ .project }}' and zone = '{{ .zone }}' and name = 'stackql-demo-001';
+WHERE project = '{{ .project }}' and zone = '{{ .zone }}' and name = 'stackql-test-001';

@@ -21,7 +21,7 @@ jobs:
     # Pull required providers
     #
     - name: pull required providers
-      uses: stackql/stackql-exec@v2.2.1
+      uses: stackql/stackql-exec@v2.2.3
       with:
         is_command: true
         query: "REGISTRY PULL google; REGISTRY PULL github"
@@ -35,7 +35,7 @@ jobs:
         test_query: |
             SELECT name
             FROM google.compute.instances 
-            WHERE project = 'stackql-demo' AND zone = 'australia-southeast1-a' AND name = 'stackql-demo-001';
+            WHERE project = 'stackql-integration-tests' AND zone = 'australia-southeast1-a' and name = 'stackql-test-001';
         expected_rows: 1
       env: 
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
@@ -47,7 +47,7 @@ jobs:
       uses: ./
       with:
         test_query_file_path: './.github/workflows/workflow_scripts/google-example.iql'
-        expected_results_str: '[{"name":"stackql-demo-001"}]'
+        expected_results_str: '[{"name":"stackql-test-001"}]'
       env: 
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
