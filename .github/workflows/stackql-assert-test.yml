@@ -60,10 +60,9 @@ jobs:
       with:
         test_query_file_path: './.github/workflows/workflow_scripts/google-example-inline-jsonnet.iql'
         expected_results_file_path: './.github/workflows/workflow_scripts/google-example-inline-jsonnet-results.json'
-        vars: GOOGLE_PROJECT=${{ env.GOOGLE_PROJECT }}
+        vars: GOOGLE_PROJECT=stackql
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-        GOOGLE_PROJECT: ${{ vars.GOOGLE_PROJECT }}
 
     #
     # Example `test_query_file_path` with `expected_rows` supplying `vars` using `jsonnet` config provided using `data_file_path`
