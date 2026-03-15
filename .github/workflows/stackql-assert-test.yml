@@ -33,11 +33,12 @@ jobs:
       uses: ./
       with:
         test_query: |
-            SELECT name
-            FROM google.compute.instances 
-            WHERE project = 'stackql-integration-tests' AND zone = 'australia-southeast1-a' and name = 'stackql-test-001';
+            SELECT name, location, locationType
+            FROM google.storage.buckets
+            WHERE project = 'stackql'
+            AND name = 'stackql-public-releases';
         expected_rows: 1
-      env: 
+      env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
     #
@@ -47,8 +48,8 @@ jobs:
       uses: ./
       with:
         test_query_file_path: './.github/workflows/workflow_scripts/google-example.iql'
-        expected_results_str: '[{"name":"stackql-test-001"}]'
-      env: 
+        expected_results_str: '[{"location":"US","locationType":"multi-region","name":"stackql-public-releases"}]'
+      env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
     #
@@ -59,11 +60,9 @@ jobs:
       with:
         test_query_file_path: './.github/workflows/workflow_scripts/google-example-inline-jsonnet.iql'
         expected_results_file_path: './.github/workflows/workflow_scripts/google-example-inline-jsonnet-results.json'
-        vars: GOOGLE_PROJECT=${{ env.GOOGLE_PROJECT }},GOOGLE_ZONE=${{ env.GOOGLE_ZONE }}
-      env: 
+        vars: GOOGLE_PROJECT=stackql
+      env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-        GOOGLE_PROJECT: ${{ vars.GOOGLE_PROJECT }}
-        GOOGLE_ZONE: ${{ vars.GOOGLE_ZONE }}
 
     #
     # Example `test_query_file_path` with `expected_rows` supplying `vars` using `jsonnet` config provided using `data_file_path`

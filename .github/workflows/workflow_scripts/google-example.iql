@@ -1,3 +1,4 @@
-SELECT name
-FROM google.compute.instances 
-WHERE project = 'stackql-integration-tests' AND zone = 'australia-southeast1-a' AND name = 'stackql-test-001';
+SELECT name, location, locationType
+FROM google.storage.buckets
+WHERE project = 'stackql'
+AND name = 'stackql-public-releases';
