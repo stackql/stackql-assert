@@ -33,11 +33,9 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Setup StackQL
-      uses: stackql/setup-stackql@v2
-      with:
-        use_wrapper: true
-
+    # No setup-stackql here: stackql-exec (invoked below) performs a guarded
+    # install that reuses an existing binary if one is already on PATH. Running
+    # setup-stackql again here would re-download unconditionally.
     - name: Execute StackQL Command
       id: exec-query
       uses: stackql/stackql-exec@v2
