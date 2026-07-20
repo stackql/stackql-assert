@@ -4,7 +4,6 @@ local project = std.extVar("GOOGLE_PROJECT");
    project: project,
 }
 >>>
-SELECT name, location, locationType
-FROM google.storage.buckets
-WHERE project = '{{ .project }}'
-AND name = 'stackql-public-releases';
+SELECT projectId, displayName, state
+FROM google.cloudresourcemanager.projects
+WHERE projectsId = '{{ .project }}';

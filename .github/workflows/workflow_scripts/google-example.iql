@@ -1,4 +1,3 @@
-SELECT name, location, locationType
-FROM google.storage.buckets
-WHERE project = 'stackql'
-AND name = 'stackql-public-releases';
+SELECT projectId, displayName, state
+FROM google.cloudresourcemanager.projects
+WHERE projectsId = 'stackql';

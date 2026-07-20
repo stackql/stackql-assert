@@ -33,10 +33,9 @@ jobs:
       uses: ./
       with:
         test_query: |
-            SELECT name, location, locationType
-            FROM google.storage.buckets
-            WHERE project = 'stackql'
-            AND name = 'stackql-public-releases';
+            SELECT projectId, displayName, state
+            FROM google.cloudresourcemanager.projects
+            WHERE projectsId = 'stackql';
         expected_rows: 1
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
@@ -48,7 +47,7 @@ jobs:
       uses: ./
       with:
         test_query_file_path: './.github/workflows/workflow_scripts/google-example.iql'
-        expected_results_str: '[{"location":"US","locationType":"multi-region","name":"stackql-public-releases"}]'
+        expected_results_str: '[{"displayName":"stackql","projectId":"stackql","state":"ACTIVE"}]'
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
