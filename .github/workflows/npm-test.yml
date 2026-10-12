@@ -1,10 +1,24 @@
 name: 'npm test'
 on:
+  push:
+    branches: [main]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    name: Unit tests (${{ matrix.target.os }}, ${{ matrix.target.arch }})
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+        - { os: ubuntu-24.04, arch: X64 }
+        - { os: ubuntu-24.04-arm, arch: ARM64 }
+        - { os: windows-2025, arch: X64 }
+        - { os: windows-11-arm, arch: ARM64 }
+        - { os: macos-15-intel, arch: X64 }
+        - { os: macos-15, arch: ARM64 }
+    runs-on: ${{ matrix.target.os }}
       
     steps:
       - uses: actions/checkout@v6
@@ -12,5 +26,12 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 24
-      - run: npm ci
-      - run: npm test
+      - name: Verify runner and Node.js architecture
+        shell: bash
+        env:
+          EXPECTED_ARCH: ${{ matrix.target.arch }}
+        run: |
+          test "$RUNNER_ARCH" = "$EXPECTED_ARCH"
+          node -e 'require("node:assert/strict").equal(process.arch, process.env.EXPECTED_ARCH.toLowerCase())'
+      - run: npm ci --ignore-scripts
+      - run: npm test -- --runInBand

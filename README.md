@@ -4,6 +4,20 @@
 
 The `stackql/stackql-assert` action is an composite action that runs a `stackql` query and checks if the result matches an expected result
 
+## Platforms and testing
+
+Supported targets are x64 and ARM64 on Linux, Windows, and macOS:
+
+| Platform | x64 runner | ARM64 runner |
+| --- | --- | --- |
+| Linux | `ubuntu-24.04` | `ubuntu-24.04-arm` |
+| Windows | `windows-2025` | `windows-11-arm` |
+| macOS | `macos-15-intel` | `macos-15` |
+
+CI runs unit tests, credential-free smoke tests, and provider integration tests on all six targets. Smoke tests cover automatic installation, preinstalled wrapped and plain binaries, native binary architecture, query and results files with spaces in their paths, empty results, and assertion failures. On macOS, setup-stackql uses the Homebrew binary for all installation modes.
+
+Provider integration tests require the repository's Google and GitHub credentials.
+
 # Usage
 
 > This action uses the [setup-stackql](https://github.com/marketplace/actions/setup-stackql) and [stackql-exec](https://github.com/marketplace/actions/stackql-exec) actions
