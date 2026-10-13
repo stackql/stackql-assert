@@ -1,4 +1,21 @@
-[![StackQL Assert](https://github.com/stackql/stackql-assert/actions/workflows/stackql-assert-test.yml/badge.svg)](https://github.com/stackql/stackql-assert/actions/workflows/stackql-assert-test.yml) 
+[stars]: https://img.shields.io/github/stars/stackql/stackql?style=flat-square "GitHub Stars"
+[logo]: https://stackql.io/img/stackql-logo-bold.png "stackql logo"
+[stackql]: https://github.com/stackql/stackql
+[homepage]: https://stackql.io/
+[downloads]: https://img.shields.io/github/downloads/stackql/stackql/total?label=github%20downloads
+
+<div align="center">
+
+[![logo]][homepage]  
+
+[![Marketplace](https://img.shields.io/badge/Marketplace-stackql--assert-blue?logo=github)](https://github.com/marketplace/actions/stackql-assert)
+[![Release](https://img.shields.io/github/v/release/stackql/stackql-assert)](https://github.com/stackql/stackql-assert/releases)
+[![CI](https://github.com/stackql/stackql-assert/actions/workflows/stackql-assert-test.yml/badge.svg)](https://github.com/stackql/stackql-assert/actions/workflows/stackql-assert-test.yml)
+[![License](https://img.shields.io/github/license/stackql/stackql-assert)](LICENSE)
+![downloads]
+[![stars]][stackql]
+
+</div>
 
 # stackql-assert
 
