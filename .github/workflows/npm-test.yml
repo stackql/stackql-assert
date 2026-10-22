@@ -21,11 +21,12 @@ jobs:
     runs-on: ${{ matrix.target.os }}
       
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Setup Node.js environment
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 24
+          check-latest: true
       - name: Verify runner and Node.js architecture
         shell: bash
         env:

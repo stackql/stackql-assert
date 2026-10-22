@@ -5,7 +5,7 @@ Before contributing, read [README.md](./README.md) for project scope.
 ## Setup
 
 1. Fork and clone the repository, then create a branch for your change.
-2. Install Node.js 24 to match CI.
+2. Install Node.js 24.22.1 or later to match CI. Earlier Node.js 24 releases are affected by the [October 2026 Node.js security releases](https://nodejs.org/en/blog/vulnerability/october-2026-security-releases).
 3. From the repository root, install dependencies and run the unit tests:
 
    ```sh
